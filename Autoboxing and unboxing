@@ -1,0 +1,41 @@
+http://www.cnblogs.com/yakov/archive/2011/10/28/java_di_shou_boxing.html
+
+Autoboxing和unboxing又名拆箱和装箱，简单一点讲，就是从primitive转换到wrapper class，例如int类型到Integer类型就是装箱，而Integer类型到int类型则是拆箱。当然，这里的装箱和拆箱都是auto的，是JVM在工作的内容，事实上不用我们手写，然而也有手写的对应方式，如下所示：
+
+1 int i=10;
+2 Integer a=new Integer(i);//装箱的操作
+3 int j=a.intValue();//拆箱的操作
+上面是手动的，在Java5.0之后已经在JVM中有了自动的装箱和拆箱的转换，如下所示：
+
+ 
+
+1 int i=10;
+2 Integer b=i;//自动的装箱
+3 int k=b;//自动的拆箱
+装箱和拆箱就是这么简单，下面可以看一下自增是怎么一个过程，这是一个很有意思的事情，递减也是一样。
+
+1 Integer d=new Integer(10);
+2 d++;//这条语句使得d先拆箱，然后进行++操作，而后对结果再装箱
+上面的这条语句，使得Java保证了wrapper class也可以是正常使用通用的操作符，但这绝对不是C++中的运算符重载。你还可以试着分析三元表达式和条件表达式中的装箱拆箱过程。
+
+ 
+
+这里需要注意的一点就是装箱和拆箱在Method Overload时候的问题，例如下面：
+
+ 
+
+1 public void doSomething(double num);
+2 public void doSomething(Integer num);
+在一个类中有这么两个函数，那么对于整数int k，如果进行doSomething(k)的调用，会调用哪个呢？
+
+在Java1.4中，显然是调用double类型的函数，然而，现在有了自动的拆箱和装箱之后会调用哪个呢？还double类型的函数，这样就保证了以前的代码在现在的版本中也可以正确的运行。
+
+ 
+
+注意，Java5中，Method的解析是三个pass的过程：
+
+A.编译器会试着不用任何的boxing和unboxing，或者启用vararg来定位正确的method。这会找到根据Java1.4的规则而会调用的任何method。
+
+B.如果第一个pass失败了，编译器会再度尝试解析method，但这次会允许boxing和unboxing转换。具有vararg的method不在这次pass的考虑中。
+
+C.如果第二个pass也失败了，编译器会做最后一次的尝试，允许boxing和unboxing，且同时也考虑到vararg method。
