@@ -1,0 +1,17 @@
+http://www.cnblogs.com/mengdd/archive/2012/11/30/2796845.html
+
+Comparison with other sorts[edit]
+Heapsort primarily competes with quicksort, another very efficient general purpose nearly-in-place comparison-based sort algorithm.
+
+Quicksort is typically somewhat faster due to some factors, but the worst-case running time for quicksort is O(n2), which is unacceptable for large data sets and can be deliberately triggered given enough knowledge of the implementation, creating a security risk. See quicksort for a detailed discussion of this problem and possible solutions.
+
+Thus, because of the O(n log n) upper bound on heapsort's running time and constant upper bound on its auxiliary storage, embedded systems with real-time constraints or systems concerned with security often use heapsort.[citation needed]
+
+Heapsort also competes with merge sort, which has the same time bounds. Merge sort requires Ω(n) auxiliary space, but heapsort requires only a constant amount. Heapsort typically runs faster in practice on machines with small or slow data caches, and does not require as much external memory. On the other hand, merge sort has several advantages over heapsort:
+
+Merge sort on arrays has considerably better data cache performance, often outperforming heapsort on modern desktop computers because merge sort frequently accesses contiguous memory locations (good locality of reference); heapsort references are spread throughout the heap.
+Heapsort is not a stable sort; merge sort is stable.
+Merge sort parallelizes well and can achieve close to linear speedup with a trivial implementation; heapsort is not an obvious candidate for a parallel algorithm.
+Merge sort can be adapted to operate on singly linked lists with O(1) extra space. Heapsort can be adapted to operate on doubly linked lists with only O(1) extra space overhead.[citation needed]
+Merge sort is used in external sorting; heapsort is not. Locality of reference is the issue.
+Introsort is an alternative to heapsort that combines quicksort and heapsort to retain advantages of both: worst case speed of heapsort and average speed of quicksort.
