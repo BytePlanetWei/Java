@@ -1,0 +1,10 @@
+Each key in a HashMap must be unique.
+
+Hashmap type Overwrite that key if hashmap key is same key
+map.put("1","1111");
+map.put("1","2222");
+output
+
+key:value
+1:2222
+
